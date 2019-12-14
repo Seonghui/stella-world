@@ -5,3 +5,9 @@ export const tagService = {
 		return api.get('tags');
 	},
 };
+
+export const articleService = {
+	getArticles: () => {
+		return api.get('articles?limit=10&offset=0');
+	},
+};

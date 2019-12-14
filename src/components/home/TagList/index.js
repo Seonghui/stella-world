@@ -2,24 +2,24 @@ import React, { useEffect } from 'react';
 import useTags from '../../../hooks/useTags';
 
 function TagList() {
+	const { getTags, tags } = useTags();
+
 	useEffect(() => {
 		getTags();
-	}, []);
-
-	const { getTags, tags } = useTags();
+	}, [getTags]);
 
 	return (
 		<>
 			<p>Popular Tags</p>
-			<div className="tag-list">
+			<ul className="tag-list">
 				{tags.map((tag, index) => {
 					return (
-						<a href="" className="tag-pill tag-default" key={index}>
+						<li className="tag-pill tag-default" key={index}>
 							{tag}
-						</a>
+						</li>
 					);
 				})}
-			</div>
+			</ul>
 		</>
 	);
 }
