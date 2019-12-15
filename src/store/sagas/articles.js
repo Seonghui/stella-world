@@ -1,10 +1,10 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
-import { articleService } from '../../api/index';
+import { articlesService } from '../../api/index';
 import { GET_ARTICLES } from '../modules/articles';
 
 function* getArticlesSaga() {
 	try {
-		const response = yield call(articleService.getArticles);
+		const response = yield call(articlesService.getArticles);
 		const { articles } = response.data;
 		yield put({ type: GET_ARTICLES.success, payload: articles });
 	} catch (e) {
