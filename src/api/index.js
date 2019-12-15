@@ -16,4 +16,7 @@ export const authService = {
 	login: user => {
 		return api.post('users/login', user);
 	},
+	getCurrentUser: () => {
+		return api.get('user');
+	},
 };

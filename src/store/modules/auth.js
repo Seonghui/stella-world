@@ -1,6 +1,13 @@
 import makeAsyncActions from '../../utils/makeAsyncActions';
+import { saveToken, removeToken } from '../../utils/localStorage';
 
+export const TEMP_LOGIN = 'TEMP_LOGIN';
 export const LOGIN = makeAsyncActions('LOGIN');
+export const GET_CURRENT_USER = makeAsyncActions('GET_CURRENT_USER');
+
+const getCurrentUser = () => ({
+	type: GET_CURRENT_USER.request,
+});
 
 const login = ({ user }) => ({
 	type: LOGIN.request,
@@ -9,8 +16,14 @@ const login = ({ user }) => ({
 	},
 });
 
+const tempLogin = () => ({
+	type: TEMP_LOGIN,
+});
+
 export const authActions = {
 	login,
+	getCurrentUser,
+	tempLogin,
 };
 
 const initialState = {
@@ -23,16 +36,25 @@ const initialState = {
 export default function auth(state = initialState, action = {}) {
 	switch (action.type) {
 		case LOGIN.success:
+		case GET_CURRENT_USER.success:
+			saveToken(action.payload.token);
 			return {
 				...state,
 				isLogin: true,
 				user: action.payload,
 			};
 		case LOGIN.failure:
+		case GET_CURRENT_USER.failure:
+			removeToken();
 			return {
 				...state,
 				isError: true,
 				errors: action.payload,
+			};
+		case TEMP_LOGIN:
+			return {
+				...state,
+				isLogin: true,
 			};
 		default:
 			return state;
