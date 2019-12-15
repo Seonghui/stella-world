@@ -10,11 +10,11 @@ export const articlesActions = {
 	getArticles,
 };
 
-const initialStage = {
+const initialState = {
 	articles: [],
 };
 
-export default function articles(state = initialStage, action = {}) {
+export default function articles(state = initialState, action = {}) {
 	switch (action.type) {
 		case GET_ARTICLES.success:
 			return {

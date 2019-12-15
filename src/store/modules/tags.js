@@ -10,11 +10,11 @@ export const tagsActions = {
 	getTags,
 };
 
-const initialStage = {
+const initialState = {
 	tags: [],
 };
 
-export default function tags(state = initialStage, action = {}) {
+export default function tags(state = initialState, action = {}) {
 	switch (action.type) {
 		case GET_TAGS.success:
 			return {
