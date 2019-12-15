@@ -8,13 +8,16 @@ import Auth from './pages/Auth';
 function App() {
 	return (
 		<div className="App">
-			<Header />
 			<Router>
+				<Header />
 				<Switch>
 					<Route path="/" exact>
 						<Home />
 					</Route>
 					<Route path="/login">
+						<Auth />
+					</Route>
+					<Route path="/register">
 						<Auth />
 					</Route>
 				</Switch>
