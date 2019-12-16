@@ -9,7 +9,7 @@ const token = loadToken();
 if (token) {
 	api.defaults.headers.common['Authorization'] = `Token ${token}`;
 } else {
-	delete api.defaults.headers.common['Authorization']
+	delete api.defaults.headers.common['Authorization'];
 }
 
 export default api;
