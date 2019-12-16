@@ -1,13 +1,6 @@
-import React, { useEffect } from 'react';
-import useTags from '../../../hooks/useTags';
+import React from 'react';
 
-function TagList() {
-	const { getTags, tags } = useTags();
-
-	useEffect(() => {
-		getTags();
-	}, [getTags]);
-
+function TagList({ tags }) {
 	return (
 		<>
 			<p>Popular Tags</p>

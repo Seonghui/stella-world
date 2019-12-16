@@ -1,14 +1,7 @@
-import React, { useEffect } from 'react';
-import useArticles from '../../../hooks/useArticles';
+import React from 'react';
 import ArticleListItem from '../ArticleListItem';
 
-function ArticleList() {
-	const { getArticles, articles } = useArticles();
-
-	useEffect(() => {
-		getArticles();
-	}, [getArticles]);
-
+function ArticleList({ articles }) {
 	return (
 		<>
 			{articles.map((article, index) => (

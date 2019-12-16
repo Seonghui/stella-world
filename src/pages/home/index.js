@@ -1,9 +1,22 @@
 /* eslint-disable */
-import React from 'react';
+import React, { useEffect } from 'react';
 import Sidebar from '../../components/layout/Sidebar';
 import ArticleList from '../../components/common/ArticleList';
+import useTags from '../../hooks/useTags';
+import useArticles from '../../hooks/useArticles';
 
 function Home() {
+	const { getTags, tags } = useTags();
+	const { getArticles, articles } = useArticles();
+
+	useEffect(() => {
+		getTags();
+	}, [getTags]);
+
+	useEffect(() => {
+		getArticles();
+	}, [getArticles]);
+
 	return (
 		<div className="home-page">
 			<div className="banner">
@@ -30,11 +43,11 @@ function Home() {
 								</li>
 							</ul>
 						</div>
-						<ArticleList />
+						<ArticleList articles={articles} />
 					</div>
 
 					<div className="col-md-3">
-						<Sidebar />
+						<Sidebar tags={tags} />
 					</div>
 				</div>
 			</div>

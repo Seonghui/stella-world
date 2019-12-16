@@ -1,10 +1,8 @@
 /* eslint-disable */
 import React from 'react';
-import useAuth from '../../../hooks/useAuth';
 import { Link } from 'react-router-dom';
 
-function Header() {
-	const { isLogin } = useAuth();
+function Header({ isLogin }) {
 	return (
 		<nav className="navbar navbar-light">
 			<div className="container">

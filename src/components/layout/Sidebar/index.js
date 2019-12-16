@@ -1,10 +1,10 @@
 import React from 'react';
 import TagList from '../../home/TagList';
 
-function Sidebar() {
+function Sidebar({ tags }) {
 	return (
 		<div className="sidebar">
-			<TagList />
+			<TagList tags={tags} />
 		</div>
 	);
 }

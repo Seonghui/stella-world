@@ -4,12 +4,14 @@ import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
 import Home from './pages/home';
 import Auth from './pages/Auth';
+import useAuth from './hooks/useAuth';
 
 function App() {
+	const { isLogin } = useAuth();
 	return (
 		<div className="App">
 			<Router>
-				<Header />
+				<Header isLogin={isLogin} />
 				<Switch>
 					<Route path="/" exact>
 						<Home />
