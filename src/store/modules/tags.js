@@ -19,7 +19,7 @@ export default function tags(state = initialState, action = {}) {
 		case GET_TAGS.success:
 			return {
 				...state,
-				tags: action.payload,
+				tags: action.payload.tags,
 			};
 		case GET_TAGS.failure:
 			return {

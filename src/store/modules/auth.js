@@ -37,11 +37,11 @@ export default function auth(state = initialState, action = {}) {
 	switch (action.type) {
 		case LOGIN.success:
 		case GET_CURRENT_USER.success:
-			saveToken(action.payload.token);
+			saveToken(action.payload.user.token);
 			return {
 				...state,
 				isLogin: true,
-				user: action.payload,
+				user: action.payload.user,
 			};
 		case LOGIN.failure:
 		case GET_CURRENT_USER.failure:

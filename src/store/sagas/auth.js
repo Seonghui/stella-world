@@ -1,32 +1,17 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { takeLatest } from 'redux-saga/effects';
 import { authService } from '../../api/index';
+import { apiSaga } from './index';
 import { LOGIN, GET_CURRENT_USER } from '../modules/auth';
 
-function* loginSaga(action) {
-	try {
-		const response = yield call(authService.login, action.payload);
-		const { user } = response.data;
-		yield put({ type: LOGIN.success, payload: user });
-	} catch (e) {
-		const { data } = e.response;
-		yield put({ type: LOGIN.failure, payload: data.errors });
-	}
-}
-
-function* getCurrentUserSaga() {
-	try {
-		const response = yield call(authService.getCurrentUser);
-		const { user } = response.data;
-		yield put({ type: GET_CURRENT_USER.success, payload: user });
-	} catch (e) {
-		const { data } = e.response;
-		yield put({ type: GET_CURRENT_USER.failure, payload: data.errors });
-	}
-}
-
 function* authSaga() {
-	yield takeLatest(LOGIN.request, loginSaga);
-	yield takeLatest(GET_CURRENT_USER.request, getCurrentUserSaga);
+	yield takeLatest(LOGIN.request, apiSaga, {
+		actionType: LOGIN,
+		api: authService.login,
+	});
+	yield takeLatest(GET_CURRENT_USER.request, apiSaga, {
+		actionType: GET_CURRENT_USER,
+		api: authService.getCurrentUser,
+	});
 }
 
 export default authSaga;

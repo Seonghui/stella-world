@@ -19,7 +19,7 @@ export default function articles(state = initialState, action = {}) {
 		case GET_ARTICLES.success:
 			return {
 				...state,
-				articles: action.payload,
+				articles: action.payload.articles,
 			};
 		case GET_ARTICLES.failure:
 			return {
