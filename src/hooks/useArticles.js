@@ -4,9 +4,14 @@ import { articlesActions } from '../store/modules/articles';
 
 export default function useArticles() {
 	const dispatch = useDispatch();
-	const { articles } = useSelector(state => state.articles);
+	const { articles, articlesCount } = useSelector(
+		state => state.articles.articles,
+	);
 
-	const getArticles = useCallback(() => dispatch(articlesActions.getArticles()), [dispatch]);
+	const getArticles = useCallback(
+		options => dispatch(articlesActions.getArticles(options)),
+		[dispatch],
+	);
 
-	return { getArticles, articles };
+	return { getArticles, articles, articlesCount };
 }

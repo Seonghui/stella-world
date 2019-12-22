@@ -2,8 +2,11 @@ import makeAsyncActions from '../../utils/makeAsyncActions';
 
 export const GET_ARTICLES = makeAsyncActions('GET_ARTICLES');
 
-const getArticles = () => ({
+const getArticles = options => ({
 	type: GET_ARTICLES.request,
+	payload: {
+		options,
+	},
 });
 
 export const articlesActions = {
@@ -11,7 +14,8 @@ export const articlesActions = {
 };
 
 const initialState = {
-	articles: [],
+	articles: {},
+	offset: 10,
 };
 
 export default function articles(state = initialState, action = {}) {
@@ -19,7 +23,7 @@ export default function articles(state = initialState, action = {}) {
 		case GET_ARTICLES.success:
 			return {
 				...state,
-				articles: action.payload.articles,
+				articles: action.payload,
 			};
 		case GET_ARTICLES.failure:
 			return {

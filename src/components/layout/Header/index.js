@@ -32,17 +32,20 @@ function Header({ isLogin }) {
 					{!isLogin && (
 						<>
 							<li className="nav-item">
-								<Link to="login" className="nav-link">
+								<Link to="/login" className="nav-link">
 									Sign in
 								</Link>
 							</li>
 							<li className="nav-item">
-								<Link to="register" className="nav-link">
+								<Link to="/register" className="nav-link">
 									Sign up
 								</Link>
 							</li>
 						</>
 					)}
+					<Link to="/@seonghui" className="nav-link active">
+						Seonghui
+					</Link>
 				</ul>
 			</div>
 		</nav>

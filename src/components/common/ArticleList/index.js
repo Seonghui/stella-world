@@ -1,14 +1,39 @@
-import React from 'react';
+import React, { useEffect, useCallback } from 'react';
+import { withRouter } from 'react-router-dom';
 import ArticleListItem from '../ArticleListItem';
+import useArticles from '../../../hooks/useArticles';
 
-function ArticleList({ articles }) {
+function ArticleList({ match, location }) {
+	const { getArticles, articles } = useArticles();
+
+	const getArticleOptions = useCallback(() => {
+		const options = match.params;
+		const { pathname } = location;
+		if (pathname.includes('favorites')) {
+			options.type = 'favorites';
+		}
+		if (pathname.includes('feed')) {
+			options.type = 'feed';
+		}
+		if (pathname.includes('articles')) {
+			options.type = 'articles';
+		}
+		return options;
+	}, [match.params, location]);
+
+	useEffect(() => {
+		const options = getArticleOptions();
+		getArticles(options);
+	}, [getArticles, getArticleOptions]);
+
 	return (
 		<>
-			{articles.map((article, index) => (
-				<ArticleListItem article={article} key={index} />
-			))}
+			{articles &&
+				articles.map((article, index) => (
+					<ArticleListItem article={article} key={index} />
+				))}
 		</>
 	);
 }
 
-export default ArticleList;
+export default withRouter(ArticleList);

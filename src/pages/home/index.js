@@ -1,21 +1,12 @@
-/* eslint-disable */
-import React, { useEffect } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import Sidebar from '../../components/layout/Sidebar';
 import ArticleList from '../../components/common/ArticleList';
-import useTags from '../../hooks/useTags';
 import useArticles from '../../hooks/useArticles';
+import Pagination from '../../components/common/Pagination';
 
 function Home() {
-	const { getTags, tags } = useTags();
-	const { getArticles, articles } = useArticles();
-
-	useEffect(() => {
-		getTags();
-	}, [getTags]);
-
-	useEffect(() => {
-		getArticles();
-	}, [getArticles]);
+	const { articlesCount, offset } = useArticles();
 
 	return (
 		<div className="home-page">
@@ -32,22 +23,23 @@ function Home() {
 						<div className="feed-toggle">
 							<ul className="nav nav-pills outline-active">
 								<li className="nav-item">
-									<a className="nav-link disabled" href="">
+									<Link to="/feed/10/1" className="nav-link">
 										Your Feed
-									</a>
+									</Link>
 								</li>
 								<li className="nav-item">
-									<a className="nav-link active" href="">
+									<Link to="/articles/10/1" className="nav-link">
 										Global Feed
-									</a>
+									</Link>
 								</li>
 							</ul>
 						</div>
-						<ArticleList articles={articles} />
+						<ArticleList />
+						<Pagination count={articlesCount} offset={offset} />
 					</div>
 
 					<div className="col-md-3">
-						<Sidebar tags={tags} />
+						<Sidebar />
 					</div>
 				</div>
 			</div>

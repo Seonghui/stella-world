@@ -7,8 +7,21 @@ export const tagsService = {
 };
 
 export const articlesService = {
-	getArticles: () => {
-		return api.get('articles?limit=10&offset=0');
+	getAll: ({ limit = 10, offset = 0 }) => {
+		return api.get(`articles?limit=${limit}&offset=${offset}`);
+	},
+	getByAuthor: ({ username, limit = 10, offset = 0 }) => {
+		return api.get(
+			`articles?author=${username}&limit=${limit}&offset=${offset}`,
+		);
+	},
+	getByFavorites: ({ username, limit = 10, offset = 0 }) => {
+		return api.get(
+			`articles?favorited=${username}&limit=${limit}&offset=${offset}`,
+		);
+	},
+	getByTag: ({ tag, limit = 10, offset = 0 }) => {
+		return api.get(`articles?tag=${tag}&limit=${limit}&offset=${offset}`);
 	},
 };
 
