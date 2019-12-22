@@ -3,14 +3,12 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
 import { Home, Auth, Editor, Profile, Settings, Article } from './pages';
-import useAuth from './hooks/useAuth';
 
 function App() {
-	const { isLogin } = useAuth();
 	return (
 		<div className="App">
 			<Router>
-				<Header isLogin={isLogin} />
+				<Header />
 				<Switch>
 					<Route exact path="/" component={Home} />
 					{/* TODO: Nested route를 컴포넌트로 만들기 */}

@@ -1,8 +1,10 @@
 /* eslint-disable */
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter, NavLink } from 'react-router-dom';
+import useAuth from '../../../hooks/useAuth';
 
-function Header({ isLogin }) {
+function Header() {
+	const { isLogin, user } = useAuth();
 	return (
 		<nav className="navbar navbar-light">
 			<div className="container">
@@ -11,45 +13,47 @@ function Header({ isLogin }) {
 				</Link>
 				<ul className="nav navbar-nav pull-xs-right">
 					<li className="nav-item">
-						<Link to="/" className="nav-link active">
+						<NavLink exact to="/" className="nav-link">
 							Home
-						</Link>
+						</NavLink>
 					</li>
 					{isLogin && (
 						<>
 							<li className="nav-item">
-								<a className="nav-link" href="">
+								<NavLink to="/editor" className="nav-link">
 									<i className="ion-compose"></i>&nbsp;New Post
-								</a>
+								</NavLink>
 							</li>
 							<li className="nav-item">
-								<a className="nav-link" href="">
+								<NavLink to="/settings" className="nav-link">
 									<i className="ion-gear-a"></i>&nbsp;Settings
-								</a>
+								</NavLink>
+							</li>
+							<li className="nav-item">
+								<NavLink to={`/@${user.username}`} className="nav-link">
+									{user.username}
+								</NavLink>
 							</li>
 						</>
 					)}
 					{!isLogin && (
 						<>
 							<li className="nav-item">
-								<Link to="/login" className="nav-link">
+								<NavLink to="/login" className="nav-link">
 									Sign in
-								</Link>
+								</NavLink>
 							</li>
 							<li className="nav-item">
-								<Link to="/register" className="nav-link">
+								<NavLink to="/register" className="nav-link">
 									Sign up
-								</Link>
+								</NavLink>
 							</li>
 						</>
 					)}
-					<Link to="/@seonghui" className="nav-link active">
-						Seonghui
-					</Link>
 				</ul>
 			</div>
 		</nav>
 	);
 }
 
-export default Header;
+export default withRouter(Header);
