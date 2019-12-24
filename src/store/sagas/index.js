@@ -2,6 +2,7 @@ import { call, put, all } from 'redux-saga/effects';
 import tagsSaga from './tags';
 import articlesSaga from './articles';
 import authSaga from './auth';
+import userSaga from './user';
 
 export function* apiSaga(options, action) {
 	try {
@@ -15,5 +16,5 @@ export function* apiSaga(options, action) {
 }
 
 export default function* rootSaga() {
-	yield all([tagsSaga(), articlesSaga(), authSaga()]);
+	yield all([tagsSaga(), articlesSaga(), authSaga(), userSaga()]);
 }

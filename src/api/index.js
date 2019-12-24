@@ -33,3 +33,15 @@ export const authService = {
 		return api.get('user');
 	},
 };
+
+export const userService = {
+	getProfile: ({ options }) => {
+		return api.get(`profiles/${options.username}`);
+	},
+	followUser: ({ options }) => {
+		return api.post(`profiles/${options.username}/follow`);
+	},
+	unfollowUser: ({ options }) => {
+		return api.delete(`profiles/${options.username}/follow`);
+	},
+};
