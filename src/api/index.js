@@ -32,6 +32,9 @@ export const authService = {
 	getCurrentUser: () => {
 		return api.get('user');
 	},
+	register: user => {
+		return api.post('users', user);
+	},
 };
 
 export const userService = {

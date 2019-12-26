@@ -5,7 +5,7 @@ import useForm from '../../hooks/useForm';
 import formValidation from '../../utils/formValidation';
 
 function Auth({ location, history }) {
-	const { isLogin, isError, errors, login } = useAuth();
+	const { isLogin, isError, errors, login, register } = useAuth();
 	const { handleChange, handleSubmit, values, formErrors } = useForm(
 		handleLogin,
 		formValidation,
@@ -18,13 +18,22 @@ function Auth({ location, history }) {
 	}, [isLogin, history]);
 
 	function handleLogin() {
-		if (isLoginPage)
+		if (isLoginPage) {
 			login({
 				user: {
 					email,
 					password,
 				},
 			});
+		} else {
+			register({
+				user: {
+					username,
+					email,
+					password,
+				},
+			});
+		}
 	}
 
 	return (

@@ -6,8 +6,16 @@ export default function useAuth() {
 	const { isLogin, isError, errors, user } = useSelector(state => state.auth);
 	const dispatch = useDispatch();
 
-	const login = useCallback(user => dispatch(authActions.login(user)), [dispatch]);
-	const getCurrentUser = useCallback(() => dispatch(authActions.getCurrentUser()), [dispatch]);
+	const login = useCallback(user => dispatch(authActions.login(user)), [
+		dispatch,
+	]);
+	const register = useCallback(user => dispatch(authActions.register(user)), [
+		dispatch,
+	]);
+	const getCurrentUser = useCallback(
+		() => dispatch(authActions.getCurrentUser()),
+		[dispatch],
+	);
 
-	return { isLogin, isError, errors, user, login, getCurrentUser };
+	return { isLogin, isError, errors, user, login, getCurrentUser, register };
 }
