@@ -4,9 +4,7 @@ export const GET_ARTICLES = makeAsyncActions('GET_ARTICLES');
 
 const getArticles = options => ({
 	type: GET_ARTICLES.request,
-	payload: {
-		options,
-	},
+	payload: options,
 });
 
 export const articlesActions = {

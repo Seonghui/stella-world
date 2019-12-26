@@ -5,11 +5,14 @@ import useForm from '../../hooks/useForm';
 import formValidation from '../../utils/formValidation';
 
 function Auth({ location, history }) {
-	const { isLogin, isError, errors, login, register } = useAuth();
-	const { handleChange, handleSubmit, values, formErrors } = useForm(
-		handleLogin,
-		formValidation,
-	);
+	const { isLogin, isError, errors, login, register, resetError } = useAuth();
+	const {
+		handleChange,
+		handleSubmit,
+		values,
+		formErrors,
+		handleResetForm,
+	} = useForm(submitAuthForm, formValidation);
 	const isLoginPage = location.pathname === '/login' ? true : false;
 	const { username, email, password } = values;
 
@@ -17,24 +20,37 @@ function Auth({ location, history }) {
 		if (isLogin) history.push('/');
 	}, [isLogin, history]);
 
-	function handleLogin() {
+	useEffect(() => {
+		handleResetForm();
+		resetError();
+		// eslint-disable-next-line
+	}, [location, history]);
+
+	function submitAuthForm() {
 		if (isLoginPage) {
 			login({
-				user: {
-					email,
-					password,
-				},
+				email,
+				password,
 			});
 		} else {
 			register({
-				user: {
-					username,
-					email,
-					password,
-				},
+				username,
+				email,
+				password,
 			});
 		}
 	}
+
+	const ErrorMessage = ({ errors }) => {
+		const list = Object.keys(errors).map(key => {
+			return (
+				<li key={key}>
+					{key} {errors[key]}
+				</li>
+			);
+		});
+		return <ul className="error-messages">{list}</ul>;
+	};
 
 	return (
 		<div className="auth-page">
@@ -51,12 +67,8 @@ function Auth({ location, history }) {
 								<Link to="/login">Have an account?</Link>
 							)}
 						</p>
-						{isError && (
-							// TODO: 에러메시지 렌더링
-							<ul className="error-messages">
-								<li>That email is already taken</li>
-							</ul>
-						)}
+
+						{isError && <ErrorMessage errors={errors} />}
 
 						{/* TODO: FORM 컴포넌트 분리 */}
 						<form onSubmit={handleSubmit}>

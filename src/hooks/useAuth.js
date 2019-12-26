@@ -12,10 +12,22 @@ export default function useAuth() {
 	const register = useCallback(user => dispatch(authActions.register(user)), [
 		dispatch,
 	]);
+	const resetError = useCallback(() => dispatch(authActions.resetError()), [
+		dispatch,
+	]);
 	const getCurrentUser = useCallback(
 		() => dispatch(authActions.getCurrentUser()),
 		[dispatch],
 	);
 
-	return { isLogin, isError, errors, user, login, getCurrentUser, register };
+	return {
+		isLogin,
+		isError,
+		errors,
+		user,
+		login,
+		getCurrentUser,
+		register,
+		resetError,
+	};
 }

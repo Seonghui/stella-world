@@ -26,11 +26,18 @@ const useForm = (callback, validation) => {
 		}));
 	};
 
+	const handleResetForm = () => {
+		setValues({});
+		setFormErrors({});
+		setIsSubmitting(false);
+	};
+
 	return {
 		handleChange,
 		handleSubmit,
 		values,
 		formErrors,
+		handleResetForm,
 	};
 };
 

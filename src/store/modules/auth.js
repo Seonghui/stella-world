@@ -2,6 +2,7 @@ import makeAsyncActions from '../../utils/makeAsyncActions';
 import { saveToken, removeToken } from '../../utils/localStorage';
 
 export const TEMP_LOGIN = 'TEMP_LOGIN';
+export const RESET_ERROR = 'RESET_ERROR';
 export const LOGIN = makeAsyncActions('LOGIN');
 export const REGISTER = makeAsyncActions('REGISTER');
 export const GET_CURRENT_USER = makeAsyncActions('GET_CURRENT_USER');
@@ -10,17 +11,24 @@ const getCurrentUser = () => ({
 	type: GET_CURRENT_USER.request,
 });
 
-const login = ({ user }) => ({
+const login = payload => ({
 	type: LOGIN.request,
 	payload: {
-		user,
+		user: {
+			email: payload.email,
+			password: payload.password,
+		},
 	},
 });
 
-const register = ({ user }) => ({
+const register = payload => ({
 	type: REGISTER.request,
 	payload: {
-		user,
+		user: {
+			username: payload.username,
+			email: payload.email,
+			password: payload.password,
+		},
 	},
 });
 
@@ -28,11 +36,16 @@ const tempLogin = () => ({
 	type: TEMP_LOGIN,
 });
 
+const resetError = () => ({
+	type: RESET_ERROR,
+});
+
 export const authActions = {
 	login,
 	getCurrentUser,
 	tempLogin,
 	register,
+	resetError,
 };
 
 const initialState = {
@@ -66,6 +79,12 @@ export default function auth(state = initialState, action = {}) {
 			return {
 				...state,
 				isLogin: true,
+			};
+		case RESET_ERROR:
+			return {
+				...state,
+				isError: false,
+				errors: {},
 			};
 		default:
 			return state;

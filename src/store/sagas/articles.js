@@ -11,8 +11,8 @@ function getArticleApiType(options) {
 
 export function* apiArticlesSaga(options, action) {
 	try {
-		const type = getArticleApiType(action.payload.options);
-		const response = yield call(articlesService[type], action.payload.options);
+		const type = getArticleApiType(action.payload);
+		const response = yield call(articlesService[type], action.payload);
 		const { data } = response;
 		yield put({ type: options.actionType.success, payload: data });
 	} catch (e) {
