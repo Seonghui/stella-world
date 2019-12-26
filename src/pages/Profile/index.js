@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import useUser from '../../hooks/useUser';
 import useAuth from '../../hooks/useAuth';
 
-function Profile({ match }) {
+function Profile({ match, history, location }) {
 	const { getProfile, profile, followUser, unfollowUser } = useUser();
 	const { isLogin, user } = useAuth();
 	const isMe = isLogin && user.username === profile.username;
@@ -18,6 +18,15 @@ function Profile({ match }) {
 	}, [getProfile, match.params]);
 
 	const handleToggleFollow = () => {
+		if (!isLogin) {
+			history.push({
+				pathname: '/login',
+				state: {
+					prevPath: location.pathname,
+				},
+			});
+			return;
+		}
 		if (isFollowing)
 			unfollowUser({
 				username: profile.username,
@@ -65,7 +74,7 @@ function Profile({ match }) {
 							/>
 							<h4>{profile.username}</h4>
 							<p>{profile.bio}</p>
-							{isLogin && <ProfileButton />}
+							<ProfileButton />
 						</div>
 					</div>
 				</div>

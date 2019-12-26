@@ -28,7 +28,7 @@ function Home() {
 									</Link>
 								</li>
 								<li className="nav-item">
-									<Link to="/articles/10/1" className="nav-link">
+									<Link to="/articles/10/0" className="nav-link">
 										Global Feed
 									</Link>
 								</li>
