@@ -3,9 +3,11 @@ import { saveToken, removeToken } from '../../utils/localStorage';
 
 export const TEMP_LOGIN = 'TEMP_LOGIN';
 export const RESET_ERROR = 'RESET_ERROR';
+export const LOGOUT = 'LOGOUT';
 export const LOGIN = makeAsyncActions('LOGIN');
 export const REGISTER = makeAsyncActions('REGISTER');
 export const GET_CURRENT_USER = makeAsyncActions('GET_CURRENT_USER');
+export const UPDATE_USER = makeAsyncActions('UPDATE_USER');
 
 const getCurrentUser = () => ({
 	type: GET_CURRENT_USER.request,
@@ -13,23 +15,12 @@ const getCurrentUser = () => ({
 
 const login = payload => ({
 	type: LOGIN.request,
-	payload: {
-		user: {
-			email: payload.email,
-			password: payload.password,
-		},
-	},
+	payload,
 });
 
 const register = payload => ({
 	type: REGISTER.request,
-	payload: {
-		user: {
-			username: payload.username,
-			email: payload.email,
-			password: payload.password,
-		},
-	},
+	payload,
 });
 
 const tempLogin = () => ({
@@ -40,12 +31,23 @@ const resetError = () => ({
 	type: RESET_ERROR,
 });
 
+const logout = () => ({
+	type: LOGOUT,
+});
+
+const updateUser = payload => ({
+	type: UPDATE_USER.request,
+	payload,
+});
+
 export const authActions = {
 	login,
 	getCurrentUser,
 	tempLogin,
 	register,
 	resetError,
+	updateUser,
+	logout,
 };
 
 const initialState = {
@@ -60,6 +62,7 @@ export default function auth(state = initialState, action = {}) {
 		case LOGIN.success:
 		case REGISTER.success:
 		case GET_CURRENT_USER.success:
+		case UPDATE_USER.success:
 			saveToken(action.payload.user.token);
 			return {
 				...state,
@@ -69,6 +72,7 @@ export default function auth(state = initialState, action = {}) {
 		case LOGIN.failure:
 		case REGISTER.failure:
 		case GET_CURRENT_USER.failure:
+		case UPDATE_USER.failure:
 			removeToken();
 			return {
 				...state,
@@ -86,6 +90,10 @@ export default function auth(state = initialState, action = {}) {
 				isError: false,
 				errors: {},
 			};
+		case LOGOUT: {
+			removeToken();
+			return initialState;
+		}
 		default:
 			return state;
 	}

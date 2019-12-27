@@ -26,14 +26,17 @@ export const articlesService = {
 };
 
 export const authService = {
-	login: user => {
-		return api.post('users/login', user);
+	login: payload => {
+		return api.post('users/login', { user: payload });
 	},
 	getCurrentUser: () => {
 		return api.get('user');
 	},
-	register: user => {
-		return api.post('users', user);
+	register: payload => {
+		return api.post('users', { user: payload });
+	},
+	updateUser: payload => {
+		return api.put('user', { user: payload });
 	},
 };
 

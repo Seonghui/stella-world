@@ -9,12 +9,17 @@ export default function useAuth() {
 	const login = useCallback(user => dispatch(authActions.login(user)), [
 		dispatch,
 	]);
+	const logout = useCallback(() => dispatch(authActions.logout()), [dispatch]);
 	const register = useCallback(user => dispatch(authActions.register(user)), [
 		dispatch,
 	]);
 	const resetError = useCallback(() => dispatch(authActions.resetError()), [
 		dispatch,
 	]);
+	const updateUser = useCallback(
+		user => dispatch(authActions.updateUser(user)),
+		[dispatch],
+	);
 	const getCurrentUser = useCallback(
 		() => dispatch(authActions.getCurrentUser()),
 		[dispatch],
@@ -29,5 +34,7 @@ export default function useAuth() {
 		getCurrentUser,
 		register,
 		resetError,
+		updateUser,
+		logout,
 	};
 }

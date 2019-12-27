@@ -12,7 +12,7 @@ function Auth({ location, history }) {
 		values,
 		formErrors,
 		handleResetForm,
-	} = useForm(submitAuthForm, formValidation);
+	} = useForm(onAuthFormSubmit, formValidation);
 	const isLoginPage = location.pathname === '/login' ? true : false;
 	const { username, email, password } = values;
 
@@ -26,7 +26,7 @@ function Auth({ location, history }) {
 		// eslint-disable-next-line
 	}, [location, history]);
 
-	function submitAuthForm() {
+	function onAuthFormSubmit() {
 		if (isLoginPage) {
 			login({
 				email,
