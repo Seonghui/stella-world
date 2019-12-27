@@ -26,6 +26,10 @@ const useForm = (callback, validation) => {
 		}));
 	};
 
+	const setInitialValue = value => {
+		setValues(value);
+	};
+
 	const handleResetForm = () => {
 		setValues({});
 		setFormErrors({});
@@ -38,6 +42,7 @@ const useForm = (callback, validation) => {
 		values,
 		formErrors,
 		handleResetForm,
+		setInitialValue,
 	};
 };
 

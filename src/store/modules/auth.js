@@ -72,7 +72,6 @@ export default function auth(state = initialState, action = {}) {
 		case LOGIN.failure:
 		case REGISTER.failure:
 		case GET_CURRENT_USER.failure:
-		case UPDATE_USER.failure:
 			removeToken();
 			return {
 				...state,
@@ -83,6 +82,12 @@ export default function auth(state = initialState, action = {}) {
 			return {
 				...state,
 				isLogin: true,
+			};
+		case UPDATE_USER.failure:
+			return {
+				...state,
+				isError: true,
+				errors: action.payload,
 			};
 		case RESET_ERROR:
 			return {

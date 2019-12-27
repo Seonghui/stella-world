@@ -5,20 +5,28 @@ import useForm from '../../hooks/useForm';
 import formValidation from '../../utils/formValidation';
 
 function Settings({ location, history }) {
-	const { user, updateUser, resetError, logout } = useAuth();
+	const { user, updateUser, resetError, logout, errors, isError } = useAuth();
 	const {
 		handleChange,
 		handleSubmit,
 		values,
 		handleResetForm,
-		formErrors,
+		setInitialValue,
 	} = useForm(onEditFormSubmit, formValidation);
 
 	useEffect(() => {
 		handleResetForm();
 		resetError();
-		// eslint-disable-next-line
 	}, [location, history]);
+
+	useEffect(() => {
+		setInitialValue({
+			username: user.username,
+			email: user.email,
+			bio: user.bio,
+			image: user.image,
+		});
+	}, [user]);
 
 	function onEditFormSubmit() {
 		updateUser(values);
@@ -30,12 +38,25 @@ function Settings({ location, history }) {
 		history.push('/');
 	};
 
+	const ErrorMessage = ({ errors }) => {
+		const list = Object.keys(errors).map(key => {
+			return (
+				<li key={key}>
+					{key} {errors[key]}
+				</li>
+			);
+		});
+		return <ul className="error-messages">{list}</ul>;
+	};
+
 	return (
 		<div className="settings-page">
 			<div className="container page">
 				<div className="row">
 					<div className="col-md-6 offset-md-3 col-xs-12">
 						<h1 className="text-xs-center">Your Settings</h1>
+
+						{isError && <ErrorMessage errors={errors} />}
 
 						<form onSubmit={handleSubmit}>
 							<fieldset>
@@ -46,7 +67,7 @@ function Settings({ location, history }) {
 										name="image"
 										placeholder="URL of profile picture"
 										onChange={handleChange}
-										defaultValue={user.image}
+										value={values.image || ''}
 									/>
 								</fieldset>
 								<fieldset className="form-group">
@@ -56,7 +77,7 @@ function Settings({ location, history }) {
 										name="username"
 										placeholder="Your Name"
 										onChange={handleChange}
-										defaultValue={user.username}
+										value={values.username || ''}
 									/>
 								</fieldset>
 								<fieldset className="form-group">
@@ -66,7 +87,7 @@ function Settings({ location, history }) {
 										rows="8"
 										placeholder="Short bio about you"
 										onChange={handleChange}
-										defaultValue={user.bio}
+										value={values.bio || ''}
 									></textarea>
 								</fieldset>
 								<fieldset className="form-group">
@@ -76,7 +97,7 @@ function Settings({ location, history }) {
 										name="email"
 										placeholder="Email"
 										onChange={handleChange}
-										defaultValue={user.email}
+										value={values.email || ''}
 									/>
 								</fieldset>
 								<fieldset className="form-group">
@@ -86,7 +107,7 @@ function Settings({ location, history }) {
 										name="password"
 										placeholder="Password"
 										onChange={handleChange}
-										defaultValue={user.password}
+										value={values.password || ''}
 									/>
 								</fieldset>
 								<button
