@@ -1,5 +1,6 @@
 import makeAsyncActions from '../../utils/makeAsyncActions';
 import { saveToken, removeToken } from '../../utils/localStorage';
+import { setHeader } from '../../api/apiConfig';
 
 export const TEMP_LOGIN = 'TEMP_LOGIN';
 export const RESET_ERROR = 'RESET_ERROR';
@@ -64,6 +65,7 @@ export default function auth(state = initialState, action = {}) {
 		case GET_CURRENT_USER.success:
 		case UPDATE_USER.success:
 			saveToken(action.payload.user.token);
+			setHeader();
 			return {
 				...state,
 				isLogin: true,
@@ -73,6 +75,7 @@ export default function auth(state = initialState, action = {}) {
 		case REGISTER.failure:
 		case GET_CURRENT_USER.failure:
 			removeToken();
+			setHeader();
 			return {
 				...state,
 				isError: true,
@@ -97,6 +100,7 @@ export default function auth(state = initialState, action = {}) {
 			};
 		case LOGOUT: {
 			removeToken();
+			setHeader();
 			return initialState;
 		}
 		default:
