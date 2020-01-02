@@ -2,17 +2,16 @@
 import React, { useEffect } from 'react';
 import useAuth from '../../hooks/useAuth';
 import useForm from '../../hooks/useForm';
-import formValidation from '../../utils/formValidation';
 
 function Settings({ location, history }) {
 	const { user, updateUser, resetError, logout, errors, isError } = useAuth();
-	const {
-		handleChange,
-		handleSubmit,
-		values,
-		handleResetForm,
-		setInitialValue,
-	} = useForm(onEditFormSubmit, formValidation);
+	const { username, email, bio, image } = user;
+	const { handleChange, values, handleResetForm, setInitialValue } = useForm({
+		username,
+		email,
+		bio,
+		image,
+	});
 
 	useEffect(() => {
 		handleResetForm();
@@ -21,20 +20,21 @@ function Settings({ location, history }) {
 
 	useEffect(() => {
 		setInitialValue({
-			username: user.username,
-			email: user.email,
-			bio: user.bio,
-			image: user.image,
+			username,
+			email,
+			bio,
+			image,
 		});
 	}, [user]);
 
-	function onEditFormSubmit() {
+	const onSettingsFormSubmit = e => {
+		e.preventDefault();
 		resetError();
 		updateUser(values, onSuccess);
-	}
+	};
 
 	const onSuccess = () => {
-		history.push(`/@${user.username}`);
+		history.push(`/@${values.username}`);
 	};
 
 	const handleLogout = e => {
@@ -62,7 +62,7 @@ function Settings({ location, history }) {
 						<h1 className="text-xs-center">Your Settings</h1>
 						{isError && <ErrorMessage errors={errors} />}
 
-						<form onSubmit={handleSubmit}>
+						<form onSubmit={onSettingsFormSubmit}>
 							<fieldset>
 								<fieldset className="form-group">
 									<input

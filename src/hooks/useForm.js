@@ -1,28 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
-const useForm = (callback, validation) => {
-	const [values, setValues] = useState({});
-	const [formErrors, setFormErrors] = useState({});
-	const [isSubmitting, setIsSubmitting] = useState(false);
+const useForm = (callback, validation, initialValue = {}) => {
+	const [values, setValues] = useState(initialValue);
 
-	useEffect(() => {
-		if (Object.keys(formErrors).length === 0 && isSubmitting) {
-			callback();
-		}
-		// eslint-disable-next-line
-	}, [formErrors]);
-
-	const handleSubmit = event => {
-		if (event) event.preventDefault();
-		setIsSubmitting(true);
-		setFormErrors(validation(values));
-	};
-
-	const handleChange = event => {
-		event.persist();
+	const handleChange = e => {
+		const { name, value } = e.target;
 		setValues(values => ({
 			...values,
-			[event.target.name]: event.target.value,
+			[name]: value,
 		}));
 	};
 
@@ -31,16 +16,12 @@ const useForm = (callback, validation) => {
 	};
 
 	const handleResetForm = () => {
-		setValues({});
-		setFormErrors({});
-		setIsSubmitting(false);
+		setValues(initialValue);
 	};
 
 	return {
 		handleChange,
-		handleSubmit,
 		values,
-		formErrors,
 		handleResetForm,
 		setInitialValue,
 	};

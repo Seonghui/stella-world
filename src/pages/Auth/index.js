@@ -2,17 +2,10 @@ import React, { useEffect } from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import useForm from '../../hooks/useForm';
-import formValidation from '../../utils/formValidation';
 
 function Auth({ location, history }) {
 	const { isLogin, isError, errors, login, register, resetError } = useAuth();
-	const {
-		handleChange,
-		handleSubmit,
-		values,
-		formErrors,
-		handleResetForm,
-	} = useForm(onAuthFormSubmit, formValidation);
+	const { handleChange, values, handleResetForm } = useForm();
 	const isLoginPage = location.pathname === '/login' ? true : false;
 	const { username, email, password } = values;
 
@@ -26,7 +19,8 @@ function Auth({ location, history }) {
 		// eslint-disable-next-line
 	}, [location, history]);
 
-	function onAuthFormSubmit() {
+	const onAuthFormSubmit = e => {
+		e.preventDefault();
 		if (isLoginPage) {
 			login({
 				email,
@@ -39,7 +33,7 @@ function Auth({ location, history }) {
 				password,
 			});
 		}
-	}
+	};
 
 	const ErrorMessage = ({ errors }) => {
 		const list = Object.keys(errors).map(key => {
@@ -71,7 +65,7 @@ function Auth({ location, history }) {
 						{isError && <ErrorMessage errors={errors} />}
 
 						{/* TODO: FORM 컴포넌트 분리 */}
-						<form onSubmit={handleSubmit}>
+						<form onSubmit={onAuthFormSubmit}>
 							<fieldset className="form-group">
 								{!isLoginPage && (
 									<input
@@ -93,9 +87,6 @@ function Auth({ location, history }) {
 									value={email || ''}
 									onChange={handleChange}
 								/>
-								{formErrors.email && (
-									<p className="error-messages">{formErrors.email}</p>
-								)}
 							</fieldset>
 							<fieldset className="form-group">
 								<input
@@ -107,9 +98,6 @@ function Auth({ location, history }) {
 									onChange={handleChange}
 									required
 								/>
-								{formErrors.password && (
-									<p className="error-messages">{formErrors.password}</p>
-								)}
 							</fieldset>
 							<button
 								type="submit"
