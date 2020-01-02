@@ -29,8 +29,13 @@ function Settings({ location, history }) {
 	}, [user]);
 
 	function onEditFormSubmit() {
-		updateUser(values);
+		resetError();
+		updateUser(values, onSuccess);
 	}
+
+	const onSuccess = () => {
+		history.push(`/@${user.username}`);
+	};
 
 	const handleLogout = e => {
 		e.preventDefault();
@@ -55,7 +60,6 @@ function Settings({ location, history }) {
 				<div className="row">
 					<div className="col-md-6 offset-md-3 col-xs-12">
 						<h1 className="text-xs-center">Your Settings</h1>
-
 						{isError && <ErrorMessage errors={errors} />}
 
 						<form onSubmit={handleSubmit}>

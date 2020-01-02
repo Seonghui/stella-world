@@ -9,9 +9,15 @@ export function* apiSaga(options, action) {
 		const response = yield call(options.api, action.payload);
 		const { data } = response;
 		yield put({ type: options.actionType.success, payload: data });
+		if (action.onSuccess) {
+			action.onSuccess();
+		}
 	} catch (e) {
 		const { data } = e.response;
 		yield put({ type: options.actionType.failure, payload: data.errors });
+		if (action.onFailure) {
+			action.onFailure();
+		}
 	}
 }
 

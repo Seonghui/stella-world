@@ -17,7 +17,8 @@ export default function useAuth() {
 		dispatch,
 	]);
 	const updateUser = useCallback(
-		user => dispatch(authActions.updateUser(user)),
+		(user, onSuccess, onFailure) =>
+			dispatch(authActions.updateUser(user, onSuccess, onFailure)),
 		[dispatch],
 	);
 	const getCurrentUser = useCallback(

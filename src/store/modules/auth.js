@@ -36,9 +36,11 @@ const logout = () => ({
 	type: LOGOUT,
 });
 
-const updateUser = payload => ({
+const updateUser = (payload, onSuccess, onFailure) => ({
 	type: UPDATE_USER.request,
 	payload,
+	onSuccess,
+	onFailure,
 });
 
 export const authActions = {
