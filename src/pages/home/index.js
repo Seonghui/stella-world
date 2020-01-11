@@ -4,9 +4,13 @@ import Sidebar from '../../components/layout/Sidebar';
 import ArticleList from '../../components/common/ArticleList';
 import useArticles from '../../hooks/useArticles';
 import Pagination from '../../components/common/Pagination';
+import useAuth from '../../hooks/useAuth';
 
-function Home() {
+function Home({ match }) {
 	const { articlesCount, offset } = useArticles();
+	const { isLogin } = useAuth();
+	const { type } = match.params;
+	const isGlobalFeed = !type || type === 'articles' ? true : false;
 
 	return (
 		<div className="home-page">
@@ -22,13 +26,21 @@ function Home() {
 					<div className="col-md-9">
 						<div className="feed-toggle">
 							<ul className="nav nav-pills outline-active">
+								{isLogin && (
+									<li className="nav-item">
+										<Link
+											to="/feed/10/0"
+											className={`nav-link${isGlobalFeed ? '' : ' active'}`}
+										>
+											Your Feed
+										</Link>
+									</li>
+								)}
 								<li className="nav-item">
-									<Link to="/feed/10/1" className="nav-link">
-										Your Feed
-									</Link>
-								</li>
-								<li className="nav-item">
-									<Link to="/articles/10/0" className="nav-link">
+									<Link
+										to="/articles/10/0"
+										className={`nav-link${isGlobalFeed ? ' active' : ''}`}
+									>
 										Global Feed
 									</Link>
 								</li>

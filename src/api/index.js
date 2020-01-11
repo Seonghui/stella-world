@@ -10,6 +10,9 @@ export const articlesService = {
 	getAll: ({ limit = 10, offset = 0 }) => {
 		return api.get(`articles?limit=${limit}&offset=${offset}`);
 	},
+	getFeedArticles: ({ limit = 10, offset = 0 }) => {
+		return api.get(`articles/feed?limit=${limit}&offset=${offset}`);
+	},
 	getByAuthor: ({ username, limit = 10, offset = 0 }) => {
 		return api.get(
 			`articles?author=${username}&limit=${limit}&offset=${offset}`,

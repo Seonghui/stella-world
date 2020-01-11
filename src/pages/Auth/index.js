@@ -10,7 +10,7 @@ function Auth({ location, history }) {
 	const { username, email, password } = values;
 
 	useEffect(() => {
-		if (isLogin) history.push('/');
+		if (isLogin) history.push('/feed/10/0');
 	}, [isLogin, history]);
 
 	useEffect(() => {

@@ -4,6 +4,7 @@ import { GET_ARTICLES } from '../modules/articles';
 
 function getArticleApiType(options) {
 	if (options['type'] === 'favorites') return 'getByFavorites';
+	else if (options['type'] === 'feed') return 'getFeedArticles';
 	else if ('tag' in options) return 'getByTag';
 	else if ('username' in options) return 'getByAuthor';
 	else return 'getAll';
