@@ -8,10 +8,17 @@ export default function useArticles() {
 		state => state.articles.articles,
 	);
 
+	const { article } = useSelector(state => state.articles);
+
 	const getArticles = useCallback(
 		options => dispatch(articlesActions.getArticles(options)),
 		[dispatch],
 	);
 
-	return { getArticles, articles, articlesCount };
+	const getArticle = useCallback(
+		options => dispatch(articlesActions.getArticle(options)),
+		[dispatch],
+	);
+
+	return { getArticles, articles, articlesCount, getArticle, article };
 }

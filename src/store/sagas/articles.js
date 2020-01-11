@@ -1,6 +1,7 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { articlesService } from '../../api/index';
-import { GET_ARTICLES } from '../modules/articles';
+import { GET_ARTICLES, GET_ARTICLE } from '../modules/articles';
+import { apiSaga } from '.';
 
 function getArticleApiType(options) {
 	if (options['type'] === 'favorites') return 'getByFavorites';
@@ -25,6 +26,11 @@ export function* apiArticlesSaga(options, action) {
 function* articlesSaga() {
 	yield takeEvery(GET_ARTICLES.request, apiArticlesSaga, {
 		actionType: GET_ARTICLES,
+	});
+
+	yield takeEvery(GET_ARTICLE.request, apiSaga, {
+		actionType: GET_ARTICLE,
+		api: articlesService.getArticle,
 	});
 }
 

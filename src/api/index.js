@@ -26,6 +26,9 @@ export const articlesService = {
 	getByTag: ({ tag, limit = 10, offset = 0 }) => {
 		return api.get(`articles?tag=${tag}&limit=${limit}&offset=${offset}`);
 	},
+	getArticle: ({ slug }) => {
+		return api.get(`articles/${slug}`);
+	},
 };
 
 export const authService = {
