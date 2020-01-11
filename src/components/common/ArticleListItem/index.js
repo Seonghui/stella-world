@@ -1,6 +1,7 @@
 /* eslint-disable */
 import React from 'react';
 import { Link } from 'react-router-dom';
+import FavoriteButton from '../FavoriteButton';
 
 function ArticleListItem({ article }) {
 	return (
@@ -15,9 +16,9 @@ function ArticleListItem({ article }) {
 					</Link>
 					<span className="date">{article.author.updatedAt}</span>
 				</div>
-				<button className="btn btn-outline-primary btn-sm pull-xs-right">
+				<FavoriteButton slug={article.slug} favorited={article.favorited}>
 					<i className="ion-heart"></i> {article.favoritesCount}
-				</button>
+				</FavoriteButton>
 			</div>
 			<Link to={`/article/${article.slug}`} className="preview-link">
 				<h1>{article.title}</h1>

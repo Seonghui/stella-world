@@ -4,7 +4,7 @@ import ArticleListItem from '../ArticleListItem';
 import useArticles from '../../../hooks/useArticles';
 
 function ArticleList({ match, location }) {
-	const { getArticles, articles } = useArticles();
+	const { getArticles, articles, article } = useArticles();
 
 	const getArticleOptions = useCallback(() => {
 		const options = match.params;
@@ -24,7 +24,7 @@ function ArticleList({ match, location }) {
 	useEffect(() => {
 		const options = getArticleOptions();
 		getArticles(options);
-	}, [getArticles, getArticleOptions]);
+	}, [getArticles, getArticleOptions, article]);
 
 	return (
 		<>

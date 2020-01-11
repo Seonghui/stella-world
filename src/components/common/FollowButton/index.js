@@ -34,7 +34,7 @@ function FollowButton({ history, location, username }) {
 	return (
 		<button
 			onClick={handleToggleFollow}
-			className="btn btn-sm btn-outline-secondary action-btn"
+			className="btn btn-sm btn-outline-secondary action-btn pull-xs-right"
 		>
 			<i className="ion-plus-round"></i>
 			&nbsp; {isFollowing ? 'Unfollow' : 'Follow'} {username}

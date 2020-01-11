@@ -29,6 +29,12 @@ export const articlesService = {
 	getArticle: ({ slug }) => {
 		return api.get(`articles/${slug}`);
 	},
+	favoriteArticle: ({ slug }) => {
+		return api.post(`articles/${slug}/favorite`);
+	},
+	unfavoriteArticle: ({ slug }) => {
+		return api.delete(`articles/${slug}/favorite`);
+	},
 };
 
 export const authService = {

@@ -20,5 +20,23 @@ export default function useArticles() {
 		[dispatch],
 	);
 
-	return { getArticles, articles, articlesCount, getArticle, article };
+	const favoriteArticle = useCallback(
+		options => dispatch(articlesActions.favoriteArticle(options)),
+		[dispatch],
+	);
+
+	const unfavoriteArticle = useCallback(
+		options => dispatch(articlesActions.unfavoriteArticle(options)),
+		[dispatch],
+	);
+
+	return {
+		getArticles,
+		articles,
+		articlesCount,
+		getArticle,
+		article,
+		favoriteArticle,
+		unfavoriteArticle,
+	};
 }

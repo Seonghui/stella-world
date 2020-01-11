@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import Comment from '../../components/common/Comment';
 import marked from 'marked';
 import FollowButton from '../../components/common/FollowButton';
+import FavoriteButton from '../../components/common/FavoriteButton';
 
 function Article({ match }) {
 	const { article, getArticle } = useArticles();
@@ -44,12 +45,11 @@ function Article({ match }) {
 								<span className="date">{updatedAt}</span>
 							</div>
 							<FollowButton username={author.username} />
-							&nbsp;&nbsp;
-							<button className="btn btn-sm btn-outline-primary">
+							<FavoriteButton slug={slug} favorited={favorited}>
 								<i className="ion-heart"></i>
 								&nbsp; Favorite Post
 								<span className="counter"> ({favoritesCount})</span>
-							</button>
+							</FavoriteButton>
 						</div>
 					)}
 				</div>
