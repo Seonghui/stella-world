@@ -4,6 +4,7 @@ import useArticles from '../../hooks/useArticles';
 import { Link } from 'react-router-dom';
 import Comment from '../../components/common/Comment';
 import marked from 'marked';
+import FollowButton from '../../components/common/FollowButton';
 
 function Article({ match }) {
 	const { article, getArticle } = useArticles();
@@ -42,10 +43,7 @@ function Article({ match }) {
 								<span className="date">{createdAt}</span>
 								<span className="date">{updatedAt}</span>
 							</div>
-							<button className="btn btn-sm btn-outline-secondary">
-								<i className="ion-plus-round"></i>
-								&nbsp; Follow {author.username}
-							</button>
+							<FollowButton username={author.username} />
 							&nbsp;&nbsp;
 							<button className="btn btn-sm btn-outline-primary">
 								<i className="ion-heart"></i>

@@ -3,39 +3,18 @@ import ArticleList from '../../components/common/ArticleList';
 import { Link } from 'react-router-dom';
 import useUser from '../../hooks/useUser';
 import useAuth from '../../hooks/useAuth';
+import FollowButton from '../../components/common/FollowButton';
 
-function Profile({ match, history, location }) {
-	const { getProfile, profile, followUser, unfollowUser } = useUser();
+function Profile({ match }) {
+	const { getProfile, profile } = useUser();
 	const { isLogin, user } = useAuth();
 	const isMe = isLogin && user.username === profile.username;
-	const isFollowing = !isMe && profile.following;
-	const isUnfollowing = !isMe && !profile.following;
 	const isFavoriteTab = match.params.type === 'favorites';
 
 	useEffect(() => {
 		const options = match.params;
 		getProfile(options);
 	}, [getProfile, match.params]);
-
-	const handleToggleFollow = () => {
-		if (!isLogin) {
-			history.push({
-				pathname: '/login',
-				state: {
-					prevPath: location.pathname,
-				},
-			});
-			return;
-		}
-		if (isFollowing)
-			unfollowUser({
-				username: profile.username,
-			});
-		if (isUnfollowing)
-			followUser({
-				username: profile.username,
-			});
-	};
 
 	const ProfileButton = () => {
 		if (isMe) {
@@ -48,17 +27,8 @@ function Profile({ match, history, location }) {
 					Edit Profile Settings
 				</Link>
 			);
-		} else {
-			return (
-				<button
-					onClick={handleToggleFollow}
-					className="btn btn-sm btn-outline-secondary action-btn"
-				>
-					<i className="ion-plus-round"></i>
-					&nbsp; {isFollowing ? 'Unfollow' : 'Follow'} {profile.username}
-				</button>
-			);
 		}
+		return null;
 	};
 
 	return (
@@ -75,6 +45,7 @@ function Profile({ match, history, location }) {
 							<h4>{profile.username}</h4>
 							<p>{profile.bio}</p>
 							<ProfileButton />
+							<FollowButton username={profile.username} />
 						</div>
 					</div>
 				</div>
