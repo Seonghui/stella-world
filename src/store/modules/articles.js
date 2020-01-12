@@ -27,9 +27,10 @@ const unfavoriteArticle = payload => ({
 	payload,
 });
 
-const createArticle = payload => ({
+const createArticle = (payload, onSuccess) => ({
 	type: CREATE_ARTICLE.request,
 	payload,
+	onSuccess,
 });
 
 const resetError = () => ({

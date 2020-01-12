@@ -10,7 +10,7 @@ export function* apiSaga(options, action) {
 		const { data } = response;
 		yield put({ type: options.actionType.success, payload: data });
 		if (action.onSuccess) {
-			action.onSuccess();
+			action.onSuccess(data);
 		}
 	} catch (e) {
 		const { data } = e.response;

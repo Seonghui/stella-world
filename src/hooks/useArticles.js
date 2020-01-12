@@ -21,7 +21,8 @@ export default function useArticles() {
 	);
 
 	const createArticle = useCallback(
-		options => dispatch(articlesActions.createArticle(options)),
+		(options, onSuccess) =>
+			dispatch(articlesActions.createArticle(options, onSuccess)),
 		[dispatch],
 	);
 
