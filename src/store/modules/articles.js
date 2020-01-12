@@ -4,25 +4,36 @@ export const GET_ARTICLES = makeAsyncActions('GET_ARTICLES');
 export const GET_ARTICLE = makeAsyncActions('GET_ARTICLE');
 export const FAVORITE_ARTICLE = makeAsyncActions('FAVORITE_ARTICLE');
 export const UNFAVORITE_ARTICLE = makeAsyncActions('UNFAVORITE_ARTICLE');
+export const CREATE_ARTICLE = makeAsyncActions('CREATE_ARTICLE');
+export const RESET_ERROR = 'RESET_ERROR';
 
-const getArticles = options => ({
+const getArticles = payload => ({
 	type: GET_ARTICLES.request,
-	payload: options,
+	payload,
 });
 
-const getArticle = options => ({
+const getArticle = payload => ({
 	type: GET_ARTICLE.request,
-	payload: options,
+	payload,
 });
 
-const favoriteArticle = options => ({
+const favoriteArticle = payload => ({
 	type: FAVORITE_ARTICLE.request,
-	payload: options,
+	payload,
 });
 
-const unfavoriteArticle = options => ({
+const unfavoriteArticle = payload => ({
 	type: UNFAVORITE_ARTICLE.request,
-	payload: options,
+	payload,
+});
+
+const createArticle = payload => ({
+	type: CREATE_ARTICLE.request,
+	payload,
+});
+
+const resetError = () => ({
+	type: RESET_ERROR,
 });
 
 export const articlesActions = {
@@ -30,12 +41,16 @@ export const articlesActions = {
 	getArticle,
 	favoriteArticle,
 	unfavoriteArticle,
+	createArticle,
+	resetError,
 };
 
 const initialState = {
 	articles: {},
 	article: {},
 	offset: 10,
+	errors: {},
+	isError: false,
 };
 
 export default function articles(state = initialState, action = {}) {
@@ -53,6 +68,7 @@ export default function articles(state = initialState, action = {}) {
 		case GET_ARTICLE.success:
 		case FAVORITE_ARTICLE.success:
 		case UNFAVORITE_ARTICLE.success:
+		case CREATE_ARTICLE.success:
 			return {
 				...state,
 				article: action.payload.article,
@@ -63,6 +79,20 @@ export default function articles(state = initialState, action = {}) {
 			return {
 				...state,
 				article: {},
+			};
+		case CREATE_ARTICLE.failure:
+			return {
+				...state,
+				article: {},
+				errors: action.payload,
+				isError: true,
+			};
+
+		case RESET_ERROR:
+			return {
+				...state,
+				errors: {},
+				isError: false,
 			};
 		default:
 			return state;

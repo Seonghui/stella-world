@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const useForm = (callback, validation, initialValue = {}) => {
+const useForm = (initialValue = {}) => {
 	const [values, setValues] = useState(initialValue);
 
 	const handleChange = e => {

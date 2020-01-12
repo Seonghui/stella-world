@@ -2,6 +2,7 @@
 import React, { useEffect } from 'react';
 import useAuth from '../../hooks/useAuth';
 import useForm from '../../hooks/useForm';
+import ErrorMessage from '../../components/common/ErrorMessage';
 
 function Settings({ location, history }) {
 	const { user, updateUser, resetError, logout, errors, isError } = useAuth();
@@ -27,7 +28,7 @@ function Settings({ location, history }) {
 		});
 	}, [user]);
 
-	const onSettingsFormSubmit = e => {
+	const handleSubmit = e => {
 		e.preventDefault();
 		resetError();
 		updateUser(values, onSuccess);
@@ -43,17 +44,6 @@ function Settings({ location, history }) {
 		history.push('/');
 	};
 
-	const ErrorMessage = ({ errors }) => {
-		const list = Object.keys(errors).map(key => {
-			return (
-				<li key={key}>
-					{key} {errors[key]}
-				</li>
-			);
-		});
-		return <ul className="error-messages">{list}</ul>;
-	};
-
 	return (
 		<div className="settings-page">
 			<div className="container page">
@@ -62,7 +52,7 @@ function Settings({ location, history }) {
 						<h1 className="text-xs-center">Your Settings</h1>
 						{isError && <ErrorMessage errors={errors} />}
 
-						<form onSubmit={onSettingsFormSubmit}>
+						<form onSubmit={handleSubmit}>
 							<fieldset>
 								<fieldset className="form-group">
 									<input

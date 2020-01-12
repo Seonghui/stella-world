@@ -5,6 +5,7 @@ import {
 	GET_ARTICLE,
 	FAVORITE_ARTICLE,
 	UNFAVORITE_ARTICLE,
+	CREATE_ARTICLE,
 } from '../modules/articles';
 import { apiSaga } from '.';
 
@@ -46,6 +47,11 @@ function* articlesSaga() {
 	yield takeEvery(UNFAVORITE_ARTICLE.request, apiSaga, {
 		actionType: UNFAVORITE_ARTICLE,
 		api: articlesService.unfavoriteArticle,
+	});
+
+	yield takeEvery(CREATE_ARTICLE.request, apiSaga, {
+		actionType: CREATE_ARTICLE,
+		api: articlesService.createArticle,
 	});
 }
 

@@ -8,7 +8,7 @@ export default function useArticles() {
 		state => state.articles.articles,
 	);
 
-	const { article } = useSelector(state => state.articles);
+	const { article, errors, isError } = useSelector(state => state.articles);
 
 	const getArticles = useCallback(
 		options => dispatch(articlesActions.getArticles(options)),
@@ -17,6 +17,11 @@ export default function useArticles() {
 
 	const getArticle = useCallback(
 		options => dispatch(articlesActions.getArticle(options)),
+		[dispatch],
+	);
+
+	const createArticle = useCallback(
+		options => dispatch(articlesActions.createArticle(options)),
 		[dispatch],
 	);
 
@@ -30,13 +35,21 @@ export default function useArticles() {
 		[dispatch],
 	);
 
+	const resetError = useCallback(() => dispatch(articlesActions.resetError()), [
+		dispatch,
+	]);
+
 	return {
 		getArticles,
 		articles,
 		articlesCount,
 		getArticle,
 		article,
+		createArticle,
 		favoriteArticle,
 		unfavoriteArticle,
+		errors,
+		isError,
+		resetError,
 	};
 }
