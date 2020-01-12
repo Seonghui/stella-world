@@ -5,6 +5,7 @@ export const GET_ARTICLE = makeAsyncActions('GET_ARTICLE');
 export const FAVORITE_ARTICLE = makeAsyncActions('FAVORITE_ARTICLE');
 export const UNFAVORITE_ARTICLE = makeAsyncActions('UNFAVORITE_ARTICLE');
 export const CREATE_ARTICLE = makeAsyncActions('CREATE_ARTICLE');
+export const UPDATE_ARTICLE = makeAsyncActions('UPDATE_ARTICLE');
 export const RESET_ERROR = 'RESET_ERROR';
 
 const getArticles = payload => ({
@@ -33,6 +34,12 @@ const createArticle = (payload, onSuccess) => ({
 	onSuccess,
 });
 
+const updateArticle = (payload, onSuccess) => ({
+	type: UPDATE_ARTICLE.request,
+	payload,
+	onSuccess,
+});
+
 const resetError = () => ({
 	type: RESET_ERROR,
 });
@@ -44,6 +51,7 @@ export const articlesActions = {
 	unfavoriteArticle,
 	createArticle,
 	resetError,
+	updateArticle,
 };
 
 const initialState = {
@@ -70,6 +78,7 @@ export default function articles(state = initialState, action = {}) {
 		case FAVORITE_ARTICLE.success:
 		case UNFAVORITE_ARTICLE.success:
 		case CREATE_ARTICLE.success:
+		case UPDATE_ARTICLE.success:
 			return {
 				...state,
 				article: action.payload.article,
@@ -82,6 +91,7 @@ export default function articles(state = initialState, action = {}) {
 				article: {},
 			};
 		case CREATE_ARTICLE.failure:
+		case UPDATE_ARTICLE.failure:
 			return {
 				...state,
 				article: {},

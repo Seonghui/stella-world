@@ -26,6 +26,12 @@ export default function useArticles() {
 		[dispatch],
 	);
 
+	const updateArticle = useCallback(
+		(options, onSuccess) =>
+			dispatch(articlesActions.updateArticle(options, onSuccess)),
+		[dispatch],
+	);
+
 	const favoriteArticle = useCallback(
 		options => dispatch(articlesActions.favoriteArticle(options)),
 		[dispatch],
@@ -47,6 +53,7 @@ export default function useArticles() {
 		getArticle,
 		article,
 		createArticle,
+		updateArticle,
 		favoriteArticle,
 		unfavoriteArticle,
 		errors,

@@ -32,6 +32,9 @@ export const articlesService = {
 	createArticle: payload => {
 		return api.post('articles', { article: payload });
 	},
+	updateArticle: ({ article, slug }) => {
+		return api.put(`articles/${slug}`, { article });
+	},
 	favoriteArticle: ({ slug }) => {
 		return api.post(`articles/${slug}/favorite`);
 	},

@@ -6,12 +6,11 @@ import Comment from '../../components/common/Comment';
 import marked from 'marked';
 import FollowButton from '../../components/common/FollowButton';
 import FavoriteButton from '../../components/common/FavoriteButton';
+import useAuth from '../../hooks/useAuth';
 
 function Article({ match }) {
 	const { article, getArticle } = useArticles();
-	useEffect(() => {
-		getArticle({ slug: match.params.slug });
-	}, []);
+	const { user } = useAuth();
 
 	const {
 		slug,
@@ -25,6 +24,24 @@ function Article({ match }) {
 		favoritesCount,
 		author,
 	} = article;
+
+	useEffect(() => {
+		getArticle({ slug: match.params.slug });
+	}, []);
+
+	const EditButton = () => {
+		if (author.username === user.username) {
+			return (
+				<Link
+					className="btn btn-outline-secondary btn-sm pull-xs-right"
+					to={`/editor/${slug}`}
+				>
+					<i className="ion-edit"></i>Edit Article
+				</Link>
+			);
+		}
+		return null;
+	};
 
 	return (
 		<div className="article-page">
@@ -45,6 +62,7 @@ function Article({ match }) {
 								<span className="date">{updatedAt}</span>
 							</div>
 							<FollowButton username={author.username} />
+							<EditButton />
 							<FavoriteButton slug={slug} favorited={favorited}>
 								<i className="ion-heart"></i>
 								&nbsp; Favorite Post

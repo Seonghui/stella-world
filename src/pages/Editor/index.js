@@ -5,26 +5,56 @@ import ErrorMessage from '../../components/common/ErrorMessage';
 import TagList from '../../components/Editor/TagList';
 import TagListForm from '../../components/Editor/TagListForm';
 
-function Editor({ history }) {
-	const { createArticle, errors, isError, resetError } = useArticles();
-	const { handleChange, values, handleResetForm } = useForm();
-	const [tagList, setTagList] = useState([]);
+function Editor({ history, match }) {
+	const {
+		createArticle,
+		errors,
+		isError,
+		resetError,
+		getArticle,
+		article,
+		updateArticle,
+	} = useArticles();
+	const { title, description, body, tagList } = article;
+	const { slug } = match.params;
+	const { handleChange, values, handleResetForm, setInitialValue } = useForm({
+		title: title || '',
+		description: description || '',
+		body: body || '',
+	});
+	const [tags, setTags] = useState([]);
 
 	useEffect(() => {
 		handleResetForm();
 		resetError();
+
+		if (slug) {
+			getArticle({ slug });
+		}
 		// eslint-disable-next-line
 	}, []);
 
+	useEffect(() => {
+		if (slug) {
+			setInitialValue({
+				title,
+				description,
+				body,
+			});
+			setTags(tagList);
+		}
+		// eslint-disable-next-line
+	}, [article]);
+
 	const handleKeyDown = tag => {
-		setTagList(tagList.concat(tag));
+		setTags(tags.concat(tag));
 	};
 
 	const handleRemoveTagItem = tag => {
-		const tags = tagList.filter(item => {
+		const newTags = tags.filter(item => {
 			return item !== tag;
 		});
-		setTagList(tags);
+		setTags(newTags);
 	};
 
 	const onSuccess = data => {
@@ -35,9 +65,13 @@ function Editor({ history }) {
 		e.preventDefault();
 		const data = {
 			...values,
-			tagList,
+			tagList: tags,
 		};
-		createArticle(data, onSuccess);
+		if (slug) {
+			updateArticle({ article: data, slug }, onSuccess);
+		} else {
+			createArticle(data, onSuccess);
+		}
 	};
 
 	return (
@@ -84,7 +118,7 @@ function Editor({ history }) {
 								<fieldset className="form-group">
 									<TagListForm handleKeyDown={handleKeyDown} />
 									<TagList
-										tags={tagList}
+										tags={tags}
 										handleRemoveTagItem={handleRemoveTagItem}
 									/>
 								</fieldset>
@@ -92,7 +126,7 @@ function Editor({ history }) {
 									className="btn btn-lg pull-xs-right btn-primary"
 									type="submit"
 								>
-									Publish Article
+									{slug ? 'Update' : 'Publish'} Article
 								</button>
 							</fieldset>
 						</form>

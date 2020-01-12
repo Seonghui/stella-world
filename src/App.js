@@ -17,8 +17,8 @@ function App() {
 					<Route path="/tag/:tag/:limit/:offset" component={Home} />
 					<Route path="/login" component={Auth} />
 					<Route path="/register" component={Auth} />
-					<Route path="/editor" component={Editor} />
 					<Route path="/editor/:slug" component={Editor} />
+					<Route path="/editor" component={Editor} />
 					<Route path="/article/:slug" component={Article} />
 					<Route path="/settings" component={Settings} />
 					<Route path="/@:username" component={Profile} />
