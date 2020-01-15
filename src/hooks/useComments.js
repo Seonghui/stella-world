@@ -12,8 +12,15 @@ export default function useComments() {
 		[dispatch],
 	);
 
+	const addComment = useCallback(
+		(options, onSuccess) =>
+			dispatch(commentsActions.addComment(options, onSuccess)),
+		[dispatch],
+	);
+
 	return {
 		comments,
 		getComments,
+		addComment,
 	};
 }

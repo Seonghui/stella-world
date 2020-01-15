@@ -77,4 +77,7 @@ export const commentsService = {
 	getComments: ({ slug }) => {
 		return api.get(`articles/${slug}/comments`);
 	},
+	addComment: ({ slug, comment }) => {
+		return api.post(`articles/${slug}/comments`, comment);
+	},
 };
