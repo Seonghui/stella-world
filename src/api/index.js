@@ -72,3 +72,9 @@ export const userService = {
 		return api.delete(`profiles/${options.username}/follow`);
 	},
 };
+
+export const commentsService = {
+	getComments: ({ slug }) => {
+		return api.get(`articles/${slug}/comments`);
+	},
+};

@@ -8,8 +8,8 @@ import FollowButton from '../../components/common/FollowButton';
 import FavoriteButton from '../../components/common/FavoriteButton';
 import useAuth from '../../hooks/useAuth';
 
-function Article({ match, history }) {
-	const { article, getArticle, deleteArticle } = useArticles();
+function Article({ match }) {
+	const { article, getArticle } = useArticles();
 	const { user } = useAuth();
 
 	const {
@@ -29,10 +29,6 @@ function Article({ match, history }) {
 		getArticle({ slug: match.params.slug });
 	}, []);
 
-	const onSuccess = () => {
-		history.goBack();
-	};
-
 	const EditButton = () => {
 		if (author.username === user.username) {
 			return (
@@ -50,10 +46,7 @@ function Article({ match, history }) {
 	const DeleteButton = () => {
 		if (author.username === user.username) {
 			return (
-				<button
-					className="btn btn-outline-danger btn-sm pull-xs-right"
-					onClick={() => deleteArticle({ slug }, onSuccess)}
-				>
+				<button className="btn btn-outline-danger btn-sm pull-xs-right">
 					<i className="ion-trash-a"></i>
 					<span>&nbsp;Delete Article</span>
 				</button>
@@ -128,7 +121,7 @@ function Article({ match, history }) {
 
 				<div className="row">
 					<div className="col-xs-12 col-md-8 offset-md-2">
-						<Comment slug={slug} />
+						<Comment />
 					</div>
 				</div>
 			</div>

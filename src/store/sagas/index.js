@@ -3,6 +3,7 @@ import tagsSaga from './tags';
 import articlesSaga from './articles';
 import authSaga from './auth';
 import userSaga from './user';
+import commentsSaga from './comments';
 
 export function* apiSaga(options, action) {
 	try {
@@ -22,5 +23,11 @@ export function* apiSaga(options, action) {
 }
 
 export default function* rootSaga() {
-	yield all([tagsSaga(), articlesSaga(), authSaga(), userSaga()]);
+	yield all([
+		tagsSaga(),
+		articlesSaga(),
+		authSaga(),
+		userSaga(),
+		commentsSaga(),
+	]);
 }
