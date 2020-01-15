@@ -35,6 +35,9 @@ export const articlesService = {
 	updateArticle: ({ article, slug }) => {
 		return api.put(`articles/${slug}`, { article });
 	},
+	deleteArticle: ({ slug }) => {
+		return api.delete(`articles/${slug}`);
+	},
 	favoriteArticle: ({ slug }) => {
 		return api.post(`articles/${slug}/favorite`);
 	},

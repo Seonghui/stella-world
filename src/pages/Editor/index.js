@@ -30,6 +30,9 @@ function Editor({ history, match }) {
 
 		if (slug) {
 			getArticle({ slug });
+		} else {
+			setInitialValue({});
+			setTags([]);
 		}
 		// eslint-disable-next-line
 	}, []);

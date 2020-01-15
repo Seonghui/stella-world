@@ -32,6 +32,12 @@ export default function useArticles() {
 		[dispatch],
 	);
 
+	const deleteArticle = useCallback(
+		(options, onSuccess) =>
+			dispatch(articlesActions.deleteArticle(options, onSuccess)),
+		[dispatch],
+	);
+
 	const favoriteArticle = useCallback(
 		options => dispatch(articlesActions.favoriteArticle(options)),
 		[dispatch],
@@ -59,5 +65,6 @@ export default function useArticles() {
 		errors,
 		isError,
 		resetError,
+		deleteArticle,
 	};
 }

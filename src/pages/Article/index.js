@@ -8,8 +8,8 @@ import FollowButton from '../../components/common/FollowButton';
 import FavoriteButton from '../../components/common/FavoriteButton';
 import useAuth from '../../hooks/useAuth';
 
-function Article({ match }) {
-	const { article, getArticle } = useArticles();
+function Article({ match, history }) {
+	const { article, getArticle, deleteArticle } = useArticles();
 	const { user } = useAuth();
 
 	const {
@@ -29,6 +29,10 @@ function Article({ match }) {
 		getArticle({ slug: match.params.slug });
 	}, []);
 
+	const onSuccess = () => {
+		history.goBack();
+	};
+
 	const EditButton = () => {
 		if (author.username === user.username) {
 			return (
@@ -38,6 +42,21 @@ function Article({ match }) {
 				>
 					<i className="ion-edit"></i>Edit Article
 				</Link>
+			);
+		}
+		return null;
+	};
+
+	const DeleteButton = () => {
+		if (author.username === user.username) {
+			return (
+				<button
+					className="btn btn-outline-danger btn-sm pull-xs-right"
+					onClick={() => deleteArticle({ slug }, onSuccess)}
+				>
+					<i className="ion-trash-a"></i>
+					<span>&nbsp;Delete Article</span>
+				</button>
 			);
 		}
 		return null;
@@ -68,6 +87,7 @@ function Article({ match }) {
 								&nbsp; Favorite Post
 								<span className="counter"> ({favoritesCount})</span>
 							</FavoriteButton>
+							<DeleteButton />
 						</div>
 					)}
 				</div>
