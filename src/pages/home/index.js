@@ -9,7 +9,7 @@ import useAuth from '../../hooks/useAuth';
 function Home({ match }) {
 	const { articlesCount, offset } = useArticles();
 	const { isLogin } = useAuth();
-	const { type } = match.params;
+	const { type, tag } = match.params;
 	const isGlobalFeed = !type || type === 'articles' ? true : false;
 
 	return (
@@ -44,6 +44,13 @@ function Home({ match }) {
 										Global Feed
 									</Link>
 								</li>
+								{tag && (
+									<li className="nav-item">
+										<Link to={`/tag/${tag}/10/0`} className="nav-link active">
+											<i className="ion-pound"></i> {tag}
+										</Link>
+									</li>
+								)}
 							</ul>
 						</div>
 						<ArticleList />
