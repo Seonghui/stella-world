@@ -64,6 +64,14 @@ function Editor({ history, match }) {
 		history.push(`/article/${data.article.slug}`);
 	};
 
+	const handleKeydown = e => {
+		if (e.keyCode === 13) {
+			if (e.target.tagName !== 'TEXTAREA') {
+				e.preventDefault();
+			}
+		}
+	};
+
 	const handleSubmit = e => {
 		e.preventDefault();
 		const data = {
@@ -83,10 +91,7 @@ function Editor({ history, match }) {
 				<div className="row">
 					<div className="col-md-10 offset-md-1 col-xs-12">
 						{isError && <ErrorMessage errors={errors} />}
-						<form
-							onSubmit={handleSubmit}
-							onKeyDown={e => e.keyCode === 13 && e.preventDefault()}
-						>
+						<form onSubmit={handleSubmit} onKeyDown={handleKeydown}>
 							<fieldset>
 								<fieldset className="form-group">
 									<input
