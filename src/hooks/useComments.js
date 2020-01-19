@@ -18,9 +18,16 @@ export default function useComments() {
 		[dispatch],
 	);
 
+	const deleteComment = useCallback(
+		(options, onSuccess) =>
+			dispatch(commentsActions.deleteComment(options, onSuccess)),
+		[dispatch],
+	);
+
 	return {
 		comments,
 		getComments,
 		addComment,
+		deleteComment,
 	};
 }

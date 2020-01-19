@@ -1,9 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function CommentList({ comments }) {
+function CommentList({ comments, isLogin, user, deleteComment }) {
 	if (comments.length) {
 		const list = comments.map(comment => {
+			const isMe = isLogin && user.username === comment.author.username;
 			return (
 				<div className="card" key={comment.id}>
 					<div className="card-block">
@@ -28,6 +29,14 @@ function CommentList({ comments }) {
 							{comment.author.username}
 						</Link>
 						<span className="date-posted">{comment.createdAt}</span>
+						{isMe && (
+							<span
+								onClick={() => deleteComment(comment.id)}
+								className="mod-options"
+							>
+								<i className="ion-trash-a"></i>
+							</span>
+						)}
 					</div>
 				</div>
 			);

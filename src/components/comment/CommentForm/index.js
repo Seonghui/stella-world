@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React from 'react';
 
-function CommentForm({ addComment, handleChange, values }) {
+function CommentForm({ addComment, handleChange, values, user }) {
 	const _onSubmit = e => {
 		e.preventDefault();
 		addComment(values);
@@ -20,10 +20,7 @@ function CommentForm({ addComment, handleChange, values }) {
 				></textarea>
 			</div>
 			<div className="card-footer">
-				<img
-					src="http://i.imgur.com/Qr71crq.jpg"
-					className="comment-author-img"
-				/>
+				<img src={user.image} className="comment-author-img" />
 				<button type="submit" className="btn btn-sm btn-primary">
 					Post Comment
 				</button>

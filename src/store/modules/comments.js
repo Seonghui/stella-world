@@ -2,6 +2,7 @@ import makeAsyncActions from '../../utils/makeAsyncActions';
 
 export const GET_COMMENTS = makeAsyncActions('GET_COMMENTS');
 export const ADD_COMMENT = makeAsyncActions('ADD_COMMENT');
+export const DELETE_COMMENT = makeAsyncActions('DELETE_COMMENT');
 
 const getComments = payload => ({
 	type: GET_COMMENTS.request,
@@ -14,9 +15,16 @@ const addComment = (payload, onSuccess) => ({
 	onSuccess,
 });
 
+const deleteComment = (payload, onSuccess) => ({
+	type: DELETE_COMMENT.request,
+	payload,
+	onSuccess,
+});
+
 export const commentsActions = {
 	addComment,
 	getComments,
+	deleteComment,
 };
 
 const initialState = {

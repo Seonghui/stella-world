@@ -80,4 +80,7 @@ export const commentsService = {
 	addComment: ({ slug, comment }) => {
 		return api.post(`articles/${slug}/comments`, comment);
 	},
+	deleteComment: ({ slug, id }) => {
+		return api.delete(`articles/${slug}/comments/${id}`);
+	},
 };

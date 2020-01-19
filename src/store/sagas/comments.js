@@ -1,7 +1,7 @@
 import { takeEvery } from 'redux-saga/effects';
 import { commentsService } from '../../api/index';
 import { apiSaga } from './index';
-import { GET_COMMENTS, ADD_COMMENT } from '../modules/comments';
+import { GET_COMMENTS, ADD_COMMENT, DELETE_COMMENT } from '../modules/comments';
 
 function* commentsSaga() {
 	yield takeEvery(GET_COMMENTS.request, apiSaga, {
@@ -12,6 +12,11 @@ function* commentsSaga() {
 	yield takeEvery(ADD_COMMENT.request, apiSaga, {
 		actionType: ADD_COMMENT,
 		api: commentsService.addComment,
+	});
+
+	yield takeEvery(DELETE_COMMENT.request, apiSaga, {
+		actionType: DELETE_COMMENT,
+		api: commentsService.deleteComment,
 	});
 }
 
