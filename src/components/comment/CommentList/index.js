@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import dateFormatter from '../../../utils/dateFormatter';
 
 function CommentList({ comments, isLogin, user, deleteComment }) {
 	if (comments.length) {
@@ -28,7 +29,9 @@ function CommentList({ comments, isLogin, user, deleteComment }) {
 						>
 							{comment.author.username}
 						</Link>
-						<span className="date-posted">{comment.createdAt}</span>
+						<span className="date-posted">
+							{dateFormatter(comment.createdAt)}
+						</span>
 						{isMe && (
 							<span
 								onClick={() => deleteComment(comment.id)}

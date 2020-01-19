@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import FollowButton from '../../common/FollowButton';
 import FavoriteButton from '../../common/FavoriteButton';
+import dateFormatter from '../../../utils/dateFormatter';
 
 function ArticleMeta({ article, user, deleteArticle }) {
 	const {
@@ -52,8 +53,8 @@ function ArticleMeta({ article, user, deleteArticle }) {
 				<Link to={`/@${author.username}`} className="author">
 					{author.username}
 				</Link>
-				<span className="date">{createdAt}</span>
-				<span className="date">{updatedAt}</span>
+				<span className="date">{dateFormatter(createdAt)}</span>
+				<span className="date">{dateFormatter(updatedAt)}</span>
 			</div>
 			<FollowButton username={author.username} />
 			<EditButton />
