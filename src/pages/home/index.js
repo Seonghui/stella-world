@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Sidebar from '../../components/layout/Sidebar';
-import ArticleList from '../../components/common/ArticleList';
+import ArticleList from '../../components/article/ArticleList';
 import useArticles from '../../hooks/useArticles';
 import Pagination from '../../components/common/Pagination';
 import useAuth from '../../hooks/useAuth';

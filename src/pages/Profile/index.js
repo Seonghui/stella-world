@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import ArticleList from '../../components/common/ArticleList';
+import ArticleList from '../../components/article/ArticleList';
 import { Link } from 'react-router-dom';
 import useUser from '../../hooks/useUser';
 import useAuth from '../../hooks/useAuth';

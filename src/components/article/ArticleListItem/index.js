@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React from 'react';
 import { Link } from 'react-router-dom';
-import FavoriteButton from '../FavoriteButton';
+import FavoriteButton from '../../common/FavoriteButton';
 
 function ArticleListItem({ article }) {
 	return (

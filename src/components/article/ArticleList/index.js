@@ -1,6 +1,6 @@
 import React, { useEffect, useCallback } from 'react';
 import { withRouter } from 'react-router-dom';
-import ArticleListItem from '../../common/ArticleListItem';
+import ArticleListItem from '../../article/ArticleListItem';
 import useArticles from '../../../hooks/useArticles';
 
 function ArticleList({ match, location }) {
