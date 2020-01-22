@@ -2,6 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import FavoriteButton from '../../common/FavoriteButton';
+import TagList from '../../home/TagList';
 
 function ArticleListItem({ article }) {
 	return (
@@ -24,6 +25,7 @@ function ArticleListItem({ article }) {
 				<h1>{article.title}</h1>
 				<p>{article.description}</p>
 				<span>Read more...</span>
+				<TagList tags={article.tagList} isOutlined={true} />
 			</Link>
 		</div>
 	);
