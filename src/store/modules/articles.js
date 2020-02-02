@@ -65,7 +65,7 @@ export const articlesActions = {
 const initialState = {
 	articles: {},
 	article: {},
-	offset: 10,
+	limit: 10,
 	errors: {},
 	isError: false,
 };

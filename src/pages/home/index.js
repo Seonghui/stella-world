@@ -7,7 +7,7 @@ import Pagination from '../../components/common/Pagination';
 import useAuth from '../../hooks/useAuth';
 
 function Home({ match }) {
-	const { articlesCount, offset } = useArticles();
+	const { articlesCount, limit } = useArticles();
 	const { isLogin } = useAuth();
 	const { type, tag } = match.params;
 	const isGlobalFeed = !type || type === 'articles' ? true : false;
@@ -29,7 +29,7 @@ function Home({ match }) {
 								{isLogin && (
 									<li className="nav-item">
 										<Link
-											to="/feed/10/0"
+											to="/feed/10/1"
 											className={`nav-link${isGlobalFeed ? '' : ' active'}`}
 										>
 											Your Feed
@@ -38,7 +38,7 @@ function Home({ match }) {
 								)}
 								<li className="nav-item">
 									<Link
-										to="/articles/10/0"
+										to="/articles/10/1"
 										className={`nav-link${isGlobalFeed ? ' active' : ''}`}
 									>
 										Global Feed
@@ -46,7 +46,7 @@ function Home({ match }) {
 								</li>
 								{tag && (
 									<li className="nav-item">
-										<Link to={`/tag/${tag}/10/0`} className="nav-link active">
+										<Link to={`/tag/${tag}/10/1`} className="nav-link active">
 											<i className="ion-pound"></i> {tag}
 										</Link>
 									</li>
@@ -54,7 +54,7 @@ function Home({ match }) {
 							</ul>
 						</div>
 						<ArticleList />
-						<Pagination count={articlesCount} offset={offset} />
+						<Pagination count={articlesCount} limit={limit} />
 					</div>
 
 					<div className="col-md-3">

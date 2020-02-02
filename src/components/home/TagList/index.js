@@ -12,7 +12,7 @@ function TagList({ tags, isOutlined }) {
 								className={`tag-pill tag-default${
 									isOutlined ? ' tag-outline' : ''
 								}`}
-								to={`/tag/${tag}/10/0`}
+								to={`/tag/${tag}/10/1`}
 							>
 								{tag}
 							</Link>

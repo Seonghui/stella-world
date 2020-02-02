@@ -7,24 +7,24 @@ export const tagsService = {
 };
 
 export const articlesService = {
-	getAll: ({ limit = 10, offset = 0 }) => {
-		return api.get(`articles?limit=${limit}&offset=${offset}`);
+	getAll: ({ limit = 10, offset = 1 }) => {
+		return api.get(`articles?limit=${limit}&offset=${offset - 1}`);
 	},
-	getFeedArticles: ({ limit = 10, offset = 0 }) => {
-		return api.get(`articles/feed?limit=${limit}&offset=${offset}`);
+	getFeedArticles: ({ limit = 10, offset = 1 }) => {
+		return api.get(`articles/feed?limit=${limit}&offset=${offset - 1}`);
 	},
-	getByAuthor: ({ username, limit = 10, offset = 0 }) => {
+	getByAuthor: ({ username, limit = 10, offset = 1 }) => {
 		return api.get(
-			`articles?author=${username}&limit=${limit}&offset=${offset}`,
+			`articles?author=${username}&limit=${limit}&offset=${offset - 1}`,
 		);
 	},
-	getByFavorites: ({ username, limit = 10, offset = 0 }) => {
+	getByFavorites: ({ username, limit = 10, offset = 1 }) => {
 		return api.get(
-			`articles?favorited=${username}&limit=${limit}&offset=${offset}`,
+			`articles?favorited=${username}&limit=${limit}&offset=${offset - 1}`,
 		);
 	},
-	getByTag: ({ tag, limit = 10, offset = 0 }) => {
-		return api.get(`articles?tag=${tag}&limit=${limit}&offset=${offset}`);
+	getByTag: ({ tag, limit = 10, offset = 1 }) => {
+		return api.get(`articles?tag=${tag}&limit=${limit}&offset=${offset - 1}`);
 	},
 	getArticle: ({ slug }) => {
 		return api.get(`articles/${slug}`);
