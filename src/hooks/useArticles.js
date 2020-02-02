@@ -8,7 +8,9 @@ export default function useArticles() {
 		state => state.articles.articles,
 	);
 
-	const { article, errors, isError } = useSelector(state => state.articles);
+	const { article, errors, isError, limit } = useSelector(
+		state => state.articles,
+	);
 
 	const getArticles = useCallback(
 		options => dispatch(articlesActions.getArticles(options)),
@@ -66,5 +68,6 @@ export default function useArticles() {
 		isError,
 		resetError,
 		deleteArticle,
+		limit,
 	};
 }
